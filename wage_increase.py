@@ -5,34 +5,38 @@ wage = 9.32
 # New minimum wage
 new_wage = 15
 # Employees working
-employees = 3
+employees = 20
 # Average price per transaction
 # Units are monetary (e.g. $)
-avg_price = 4
+avg_price = 40
 # Customers per hour
 customers_per_hour = 20
 # Additional support manhours per day
 # This adds in downstream cost for services provided by outside vendors
-downstream_manhours_per_day = 5
-operating_hours = 8
+downstream_manhours_per_day = 30
+operating_hours = 12
 
 def wage_increase(wage, new_wage, employees, avg_price, customers_per_hour, downstream_manhours_per_day, operating_hours):
+  social_security_pct = 0.062
+  medicare_tax_pct = 0.0145
   wage_delta = float(new_wage - wage)
+  tax_delta = (social_security_pct + medicare_tax_pct) * wage_delta
   downstream_manhours_per_hour = float(downstream_manhours_per_day)/float(operating_hours)
   internal_increase_per_hour = float(wage_delta * employees)
   downstream_increase_per_hour = float(wage_delta * downstream_manhours_per_hour)
-  increase_per_hour = float(internal_increase_per_hour + downstream_increase_per_hour)
+  increase_per_hour = float(internal_increase_per_hour + downstream_increase_per_hour + tax_delta)
   hourly_income = customers_per_hour * avg_price
   hourly_income_target =  hourly_income + increase_per_hour
   increase_per_customer =  (hourly_income_target/customers_per_hour) - avg_price
   pct_increase_customer = (increase_per_customer/avg_price) * 100
   
+  print "Number of employees                = {}".format(employees)
+  print "Downstream manhours per day        = {}".format(downstream_manhours_per_day)
   print "Current Minimum Wage               = ${}".format(wage)
   print "New Minimum Wage                   = ${}".format(new_wage)
   print "Wage difference per hour           = ${}".format(wage_delta)
-  print "Number of employees                = {}".format(employees)
-  print "Additional downstream manhours     = {}".format(downstream_manhours_per_day)
   print "Downstream wage cost per hour      = ${:03.2f}".format(downstream_increase_per_hour)
+  print "Tax increase per hour              = ${:03.2f}".format(tax_delta)
   print "Total Increased wage cost per hour = ${:03.2f}".format(increase_per_hour)
   print "Average price per transaction      = ${}".format(avg_price)
   print "Customers per hour                 = {}".format(customers_per_hour)
