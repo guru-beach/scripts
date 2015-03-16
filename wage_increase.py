@@ -6,7 +6,7 @@ wage = 9.32
 new_wage = 15
 # Employees working
 employees = 20
-# Average price transaction
+# Average price per transaction
 # Units are monetary (e.g. $)
 avg_price = 40
 # Customers per hour
@@ -20,17 +20,17 @@ def wage_increase(wage, new_wage, employees, avg_price, customers_per_hour):
   increase_per_customer =  (hourly_income_target/customers_per_hour) - avg_price
   pct_increase_customer = (increase_per_customer/avg_price) * 100
   
-  print "Current Minimum Wage = ${}".format(wage)
-  print "New Minimum Wage = ${}".format(new_wage)
-  print "Wage difference per hour: ${}".format(wage_delta)
-  print "Number of employees = {}".format(employees)
+  print "Current Minimum Wage               = ${}".format(wage)
+  print "New Minimum Wage                   = ${}".format(new_wage)
+  print "Wage difference per hour           = ${}".format(wage_delta)
+  print "Number of employees                = {}".format(employees)
   print "Total Increased wage cost per hour = ${}".format(increase_per_hour)
-  print "Average price per transaction = ${}".format(avg_price)
-  print "Customers per hour = {}".format(customers_per_hour)
-  print "Curent Hourly Income: ${}".format(hourly_income)
-  print "New revenue target = ${}".format(hourly_income_target)
-  print "Increase per customer = ${}".format(increase_per_customer)
-  print "Percentage Increase per customer = %{}".format(pct_increase_customer)
+  print "Average price per transaction      = ${}".format(avg_price)
+  print "Customers per hour                 = {}".format(customers_per_hour)
+  print "Curent Hourly Income               = ${}".format(hourly_income)
+  print "New revenue target                 = ${}".format(hourly_income_target)
+  print "Increase per customer              = ${}".format(increase_per_customer)
+  print "Percentage Increase per customer   = %{}".format(pct_increase_customer)
 
 
 if __name__ == "__main__":
