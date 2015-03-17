@@ -13,14 +13,19 @@ avg_price = 40
 customers_per_hour = 20
 # Additional support manhours per day
 # This adds in downstream cost for services provided by outside vendors
-downstream_manhours_per_day = 30
+downstream_manhours_per_day = 10
 operating_hours = 12
 
-def wage_increase(wage, new_wage, employees, avg_price, customers_per_hour, downstream_manhours_per_day, operating_hours):
-  social_security_pct = 0.062
-  medicare_tax_pct = 0.0145
+# This varies by state
+# WA 2014 rate:
+unemployment_insurace_rate = 0.02
+
+def wage_increase(wage, new_wage, employees, avg_price, customers_per_hour, downstream_manhours_per_day, operating_hours, unemployment_insurace_rate):
+  # These are mostly static values so setting in the function
+  social_security_rate = 0.062
+  medicare_tax_rate = 0.0145
   wage_delta = float(new_wage - wage)
-  tax_delta = (social_security_pct + medicare_tax_pct) * wage_delta
+  tax_delta = (social_security_rate + medicare_tax_rate + unemployment_insurace_rate) * wage_delta
   downstream_manhours_per_hour = float(downstream_manhours_per_day)/float(operating_hours)
   internal_increase_per_hour = float(wage_delta * employees)
   downstream_increase_per_hour = float(wage_delta * downstream_manhours_per_hour)
@@ -47,4 +52,4 @@ def wage_increase(wage, new_wage, employees, avg_price, customers_per_hour, down
 
 
 if __name__ == "__main__":
-  wage_increase(wage, new_wage, employees, avg_price, customers_per_hour, downstream_manhours_per_day, operating_hours)
+  wage_increase(wage, new_wage, employees, avg_price, customers_per_hour, downstream_manhours_per_day, operating_hours, unemployment_insurace_rate)
