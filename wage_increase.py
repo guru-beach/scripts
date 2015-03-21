@@ -25,14 +25,23 @@ def wage_increase(wage, new_wage, employees, avg_price, customers_per_hour, down
   social_security_rate = 0.062
   medicare_tax_rate = 0.0145
   wage_delta = float(new_wage - wage)
+  # Increased taxes
   tax_delta = (social_security_rate + medicare_tax_rate + unemployment_insurace_rate) * wage_delta
+  # How many manhours/hr used for goods and services consumed by the business
   downstream_manhours_per_hour = float(downstream_manhours_per_day)/float(operating_hours)
+  # How much more wages affect wage costs
   internal_increase_per_hour = float(wage_delta * employees)
+  # Transferred increase of downstream wages
   downstream_increase_per_hour = float(wage_delta * downstream_manhours_per_hour)
+  # Total increase across all dimensions
   increase_per_hour = float(internal_increase_per_hour + downstream_increase_per_hour + tax_delta)
+  # Average amount of income per hour
   hourly_income = customers_per_hour * avg_price
+  # Income needed to overcome new costs
   hourly_income_target =  hourly_income + increase_per_hour
+  # New costs spread across customers
   increase_per_customer =  (hourly_income_target/customers_per_hour) - avg_price
+  # Percent cost increase spread across customers
   pct_increase_customer = (increase_per_customer/avg_price) * 100
   
   print "Number of employees                = {}".format(employees)
